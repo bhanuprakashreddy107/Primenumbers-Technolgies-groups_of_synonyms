@@ -1,0 +1,38 @@
+l =  [ {'Dg set': 'Diesel generator'}, {'Organization': 'Organisation'}, {'Group': 'Organization'}, {'Orange': 'Kinnu'}, {'Orange': 'narangi'} ]
+
+# to store the above list in a form o dictionary for easy computations
+d1={}
+for d in l:
+    # taking every key and value pairs from every dictionary in the list
+    for (key,value) in d.items():
+        if key in d1:
+            d1[key].append(value)
+        else:
+            d1[key] = [value]
+        if value in d1:
+            d1[value].append(key)
+        else:
+            d1[value] = [key]
+        
+# initialising a stack
+stack = []
+# keeping track of visited nodes by using a "visited" map
+visited = {}
+# to store the grouped items
+ans_array = []
+for key in d1.keys():
+    node = key
+    temp_list = []
+    stack.append(node)
+    while(len(stack) > 0):
+        x = stack.pop()
+        # if node not in visited , then adding all the nodes corresponding to that node , and adding the node into visited array
+        if(x not in visited):
+            visited[x] = 1
+            temp_list.append(x)
+            for i in d1[x]:
+                stack.append(i)
+    if len(temp_list) > 0:
+        ans_array.append(temp_list)
+
+print(ans_array)
